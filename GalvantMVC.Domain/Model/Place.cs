@@ -10,6 +10,6 @@ namespace GalvantMVC.Domain.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<Equipment> Equipments { get; set; }
+        public virtual ICollection<Equipment> Equipment { get; set; }
     }
 }

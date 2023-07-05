@@ -36,6 +36,29 @@ namespace GalvantMVC.Infrastructure
                 .HasOne(a => a.Compressor).WithOne(b => b.Equipment)
                 .HasForeignKey<Compressor>(c => c.EquipmentId);
 
+            builder.Entity<Compressor>()
+            .Property(c => c.Capacity)
+            .HasColumnType("decimal(9,2)");
+
+            builder.Entity<Compressor>()
+            .Property(c => c.Power)
+            .HasColumnType("decimal(9,2)");
+
+            builder.Entity<Compressor>()
+            .Property(c => c.Pressure)
+            .HasColumnType("decimal(9,2)");
+
+            builder.Entity<Forklift>()
+            .Property(c => c.LiftingCapacity)
+            .HasColumnType("decimal(9,2)");
+
+            builder.Entity<Forklift>()
+            .Property(c => c.Speed)
+            .HasColumnType("decimal(9,2)");
+
+            builder.Entity<Forklift>()
+            .Property(c => c.Weight)
+            .HasColumnType("decimal(9,2)");
         }
     }
 }

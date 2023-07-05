@@ -10,8 +10,8 @@ namespace GalvantMVC.Domain.Model
     {
         public int Id { get; set; }
         public int TypeId { get; set; }
-        public string LocationId { get; set; }
-        public string PlaceId { get; set; }
+        public int LocationId { get; set; }
+        public int PlaceId { get; set; }
         public string Notes { get; set; }
         public virtual Type Type { get; set; }
         public virtual Location Location { get; set; }

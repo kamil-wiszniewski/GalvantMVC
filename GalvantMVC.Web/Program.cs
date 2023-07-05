@@ -1,5 +1,4 @@
 using GalvantMVC.Infrastructure;
-using GalvantMVC.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
