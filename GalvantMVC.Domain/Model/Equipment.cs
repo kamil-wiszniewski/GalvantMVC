@@ -13,6 +13,7 @@ namespace GalvantMVC.Domain.Model
         public int LocationId { get; set; }
         public int PlaceId { get; set; }
         public string Notes { get; set; }
+        public bool IsActive { get; set; }
         public virtual Type Type { get; set; }
         public virtual Location Location { get; set; }
         public virtual Place Place { get; set; }

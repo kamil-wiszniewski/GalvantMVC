@@ -27,7 +27,7 @@ namespace GalvantMVC.Infrastructure.Repositories
             }
         }
 
-        public int AddItem(Equipment equipment) 
+        public int AddEquipment(Equipment equipment) 
         {
             _context.Equipment.Add(equipment);
             _context.SaveChanges();
@@ -50,6 +50,24 @@ namespace GalvantMVC.Infrastructure.Repositories
         {
             var types = _context.Types;
             return types;
+        }
+
+        public string GetTypeNameById(int typeId) 
+        {
+            var type = _context.Types.FirstOrDefault(t => t.Id == typeId);
+            return type.Name;
+        }
+
+        public string GetLocationNameById(int locationId)
+        {
+            var location = _context.Locations.FirstOrDefault(l => l.Id == locationId);
+            return location.Name;
+        }
+
+        public string GetPlaceNameById(int placeId)
+        {
+            var place = _context.Places.FirstOrDefault(p => p.Id == placeId);
+            return place.Name;
         }
     }
 }

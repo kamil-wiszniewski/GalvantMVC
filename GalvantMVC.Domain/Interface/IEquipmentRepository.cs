@@ -19,6 +19,8 @@ namespace GalvantMVC.Domain.Interface
         Equipment GetEquipmentById(int equipmentId);      
 
         IQueryable<Type> GetAllTypes();
+
+        IQueryable<Equipment> GetAllActiveEquipment();
       
     }
 }
