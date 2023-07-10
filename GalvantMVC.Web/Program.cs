@@ -1,4 +1,7 @@
+using GalvantMVC.Domain.Interface;
 using GalvantMVC.Infrastructure;
+using GalvantMVC.Infrastructure.Repositories;
+using GalvantMVC.Application;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +22,8 @@ namespace GalvantMVC.Web
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<Context>();
             builder.Services.AddControllersWithViews();
+            builder.Services.AddApplication();
+            builder.Services.AddInfrastructure();
 
             var app = builder.Build();
 

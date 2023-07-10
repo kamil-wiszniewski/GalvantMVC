@@ -17,6 +17,12 @@ namespace GalvantMVC.Infrastructure.Repositories
             _context = context;
         }
 
+        public IQueryable<Equipment> GetAllActiveEquipment()
+        {
+            var equipment = _context.Equipment;
+            return equipment;
+        }
+
         public void DeleteEquipment(int equipmentId)
         {
             var equipment = _context.Equipment.Find(equipmentId);

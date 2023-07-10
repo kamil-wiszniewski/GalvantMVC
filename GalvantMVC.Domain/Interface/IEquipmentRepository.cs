@@ -12,7 +12,7 @@ namespace GalvantMVC.Domain.Interface
     {
         void DeleteEquipment(int equipmentId);      
 
-        int AddItem(Equipment equipment);      
+        int AddEquipment(Equipment equipment);      
 
         IQueryable<Equipment> GetEquipmentByTypeId(int typeId);       
 
@@ -21,6 +21,12 @@ namespace GalvantMVC.Domain.Interface
         IQueryable<Type> GetAllTypes();
 
         IQueryable<Equipment> GetAllActiveEquipment();
-      
+
+        string GetTypeNameById(int typeId);
+
+        string GetLocationNameById(int locationId);
+
+        string GetPlaceNameById(int placeId);
+
     }
 }
