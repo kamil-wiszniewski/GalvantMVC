@@ -1,4 +1,5 @@
 ﻿using GalvantMVC.Application.ViewModels;
+using GalvantMVC.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace GalvantMVC.Application.Interfaces
         int AddEquipment(NewEquipmentVm equipment);
 
         CompressorDetailsVm GetEquipmentDetails(int equipmentId);
+
+        List<string> GetAllTypeNames();
 
     }
 }

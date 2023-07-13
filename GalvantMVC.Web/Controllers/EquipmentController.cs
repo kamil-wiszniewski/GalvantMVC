@@ -1,4 +1,5 @@
 ﻿using GalvantMVC.Application.Interfaces;
+using GalvantMVC.Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GalvantMVC.Web.Controllers
@@ -20,19 +21,21 @@ namespace GalvantMVC.Web.Controllers
         }
 
         //zwraca widok z pustym formularzem do dodania nowego urządzenia
-      /*  [HttpGet]
+        [HttpGet]
         public IActionResult AddEquipment() 
         {
-            return View();
-        }*/
+            var types = _equipmentService.GetAllTypeNames();
+            ViewBag.Types = types; // Ustaw listę typów w ViewBag
+            return View(new NewEquipmentVm());
+        }
 
         //zapsisuje nowe urządzenie w bazie
-       /* [HttpPost]
-        public IActionResult AddEquipment(EquipmentModel model)
+       [HttpPost]
+        public IActionResult AddEquipment(NewEquipmentVm model)
         {
-            var id = equipmentService.AddEquipment(model);
+            var id = _equipmentService.AddEquipment(model);
             return View();
-        }*/
+        }
 
        /* public IActionResult ViewEquipment(int equipmentId) 
         {

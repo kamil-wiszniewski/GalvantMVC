@@ -1,6 +1,7 @@
 ﻿using GalvantMVC.Application.Interfaces;
 using GalvantMVC.Application.ViewModels;
 using GalvantMVC.Domain.Interface;
+using GalvantMVC.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,6 +59,13 @@ namespace GalvantMVC.Application.Services
             equipmentVm.Capacity = equipment.Compressor.Capacity;
 
             return equipmentVm;
+        }
+
+        public List<string> GetAllTypeNames()
+        {
+            var types = _equipmentRepo.GetAllTypes();
+            var typeNames = types.Select(type => type.Name).ToList();
+            return typeNames;            
         }
     }
 }
