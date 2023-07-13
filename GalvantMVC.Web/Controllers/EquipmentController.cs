@@ -37,10 +37,21 @@ namespace GalvantMVC.Web.Controllers
             return View();
         }
 
-       /* public IActionResult ViewEquipment(int equipmentId) 
+        [HttpGet]
+        public IActionResult AdditionalFieldsPartial(string selectedType)
         {
-            var equipmentModel = equipmentService.GetEquipmentDetails(equipmentId);
-            return View(equipmentModel);
-        }*/
+            var model = new AdditionalFieldsVm
+            {
+                SelectedType = selectedType
+            };
+
+            return PartialView("_AdditionalFields", model);
+        }
+
+        /* public IActionResult ViewEquipment(int equipmentId) 
+         {
+             var equipmentModel = equipmentService.GetEquipmentDetails(equipmentId);
+             return View(equipmentModel);
+         }*/
     }
 }
