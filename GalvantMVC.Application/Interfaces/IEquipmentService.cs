@@ -11,7 +11,7 @@ namespace GalvantMVC.Application.Interfaces
     public interface IEquipmentService
     {
         ListEquipmentForListVm GetAllEquipmentForList();
-        int AddEquipment(NewEquipmentVm equipment);
+        int AddEquipment(NewEquipmentVm model, AdditionalFieldsVm addmodel);
 
         CompressorDetailsVm GetEquipmentDetails(int equipmentId);
 

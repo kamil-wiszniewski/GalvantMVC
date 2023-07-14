@@ -31,9 +31,9 @@ namespace GalvantMVC.Web.Controllers
 
         //zapsisuje nowe urządzenie w bazie
        [HttpPost]
-        public IActionResult AddEquipment(NewEquipmentVm model)
+        public IActionResult AddEquipment(NewEquipmentVm model, AdditionalFieldsVm addmodel)
         {
-            var id = _equipmentService.AddEquipment(model);
+            var id = _equipmentService.AddEquipment(model, addmodel);
             return View();
         }
 

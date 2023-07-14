@@ -1,14 +1,24 @@
 ﻿@model GalvantMVC.Application.ViewModels.AdditionalFieldsVm
 
-@if (Model.SelectedType == "suwnica")
+@if (Model.SelectedType == "forklift")
 {
     <div class="form-group">
-        <label asp-for="Field1" class="control-label"></label>
-        <input asp-for="Field1" class="form-control" />
-        <span asp-validation-for="Field1" class="text-danger"></span>
+        <label asp-for="Speed" class="control-label"></label>
+        <input asp-for="Speed" class="form-control" />
+        <span asp-validation-for="Speed" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Weight" class="control-label"></label>
+        <input asp-for="Weight" class="form-control" />
+        <span asp-validation-for="Weight" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LiftingCapacity" class="control-label"></label>
+        <input asp-for="LiftingCapacity" class="form-control" />
+        <span asp-validation-for="LiftingCapacity" class="text-danger"></span>
     </div>
 }
-else if (Model.SelectedType == "wózek")
+else if (Model.SelectedType == "compressor")
 {
     <div class="form-group">
         <label asp-for="Field2" class="control-label"></label>

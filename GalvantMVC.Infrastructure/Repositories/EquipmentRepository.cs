@@ -40,6 +40,13 @@ namespace GalvantMVC.Infrastructure.Repositories
             return equipment.Id;
         }
 
+        public int AddForklift(Forklift forklift)
+        {
+            _context.Forklifts.Add(forklift);
+            _context.SaveChanges();
+            return forklift.Id;
+        }
+
         public IQueryable<Equipment> GetEquipmentByTypeId(int typeId) 
         {
             var equipment = _context.Equipment.Where(x => x.TypeId == typeId);
@@ -74,6 +81,12 @@ namespace GalvantMVC.Infrastructure.Repositories
         {
             var place = _context.Places.FirstOrDefault(p => p.Id == placeId);
             return place.Name;
+        }
+
+        public int GetTypeIdByName(string typeName) 
+        {
+            var type = _context.Types.FirstOrDefault(n  => n.Name == typeName);
+            return type.Id;
         }
     }
 }

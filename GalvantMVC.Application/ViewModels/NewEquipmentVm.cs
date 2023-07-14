@@ -10,5 +10,7 @@ namespace GalvantMVC.Application.ViewModels
     {
         public int Id { get; set; }
         public string Type { get; set; }
+        public string Notes { get; set; }
+        public Dictionary<string, object> AdditionalFields { get; set; } = new Dictionary<string, object>();
     }
 }

@@ -19,9 +19,41 @@ namespace GalvantMVC.Application.Services
             _equipmentRepo = equipmentRepo;
         }
 
-        public int AddEquipment(NewEquipmentVm equipment)
+        public int AddEquipment(NewEquipmentVm model, AdditionalFieldsVm addmodel)
         {
-            throw new NotImplementedException();
+            var typeId = _equipmentRepo.GetTypeIdByName(model.Type);
+
+            if (model.Type == "forklift")
+            {
+                model.AdditionalFields["Speed"] = addmodel.Speed;
+                model.AdditionalFields["Weight"] = addmodel.Weight;
+                model.AdditionalFields["LiftingCapacity"] = addmodel.LiftingCapacity;
+            }
+
+            var equipment = new Equipment
+            {
+                TypeId = typeId,
+                LocationId = 1,
+                PlaceId = 1,
+                Notes = model.Notes,                
+            };
+
+            _equipmentRepo.AddEquipment(equipment);
+
+            if (model.Type == "forklift")
+            {
+                var forklift = new Forklift
+                {
+                    EquipmentId = equipment.Id,
+                    Speed = addmodel.Speed,
+                    Weight = addmodel.Weight,
+                    LiftingCapacity = addmodel.LiftingCapacity
+                };
+
+                _equipmentRepo.AddForklift(forklift);
+            }
+
+            return equipment.Id;
         }
 
         public ListEquipmentForListVm GetAllEquipmentForList()
