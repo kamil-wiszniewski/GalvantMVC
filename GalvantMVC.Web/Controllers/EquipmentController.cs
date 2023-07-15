@@ -34,8 +34,32 @@ namespace GalvantMVC.Web.Controllers
         public IActionResult AddEquipment(NewEquipmentVm model, AdditionalFieldsVm addmodel)
         {
             var id = _equipmentService.AddEquipment(model, addmodel);
-            return View();
+            return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult EditEquipment(int id)
+        {
+            var equipment = _equipmentService.GetEquipmentSharedFieldsForEdit(id);
+            var additionalFields = _equipmentService.GetEquipmenmtAdditionalFieldsForEdit(id);
+
+            var editEquipmentVm = new EditEquipmentVm
+            {
+                NewEquipmentVm = equipment,
+                AdditionalFieldsVm = additionalFields
+            };
+
+            return View(editEquipmentVm);
+        }
+
+        [HttpPost]
+        public IActionResult EditEquipment(NewEquipmentVm model, AdditionalFieldsVm addmodel)
+        {
+            var id = _equipmentService.AddEquipment(model, addmodel);
+            return RedirectToAction("Index");
+        }
+
+
 
         [HttpGet]
         public IActionResult AdditionalFieldsPartial(string selectedType)

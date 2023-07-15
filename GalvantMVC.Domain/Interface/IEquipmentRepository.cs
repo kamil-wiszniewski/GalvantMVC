@@ -31,5 +31,7 @@ namespace GalvantMVC.Domain.Interface
         string GetPlaceNameById(int placeId);
 
         int GetTypeIdByName(string typeName);
+
+        Forklift GetForkliftByEquipmentId(int id);
     }
 }

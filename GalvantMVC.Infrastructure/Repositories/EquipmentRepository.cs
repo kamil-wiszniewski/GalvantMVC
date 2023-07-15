@@ -88,5 +88,11 @@ namespace GalvantMVC.Infrastructure.Repositories
             var type = _context.Types.FirstOrDefault(n  => n.Name == typeName);
             return type.Id;
         }
+
+        public Forklift GetForkliftByEquipmentId(int id) 
+        {
+            var forklift = _context.Forklifts.FirstOrDefault(n => n.EquipmentId == id);
+            return forklift;
+        }
     }
 }

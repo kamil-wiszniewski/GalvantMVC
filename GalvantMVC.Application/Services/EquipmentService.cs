@@ -93,6 +93,45 @@ namespace GalvantMVC.Application.Services
             return equipmentVm;
         }
 
+        public NewEquipmentVm GetEquipmentSharedFieldsForEdit(int id) 
+        {   
+            var equipment = _equipmentRepo.GetEquipmentById(id);
+
+            var typeName = _equipmentRepo.GetTypeNameById(equipment.TypeId);
+
+            var newequipmentVm = new NewEquipmentVm
+            {
+                Id= equipment.Id,
+                Type = typeName,
+                Notes = equipment.Notes,
+            };
+            return newequipmentVm;
+        }
+
+        public AdditionalFieldsVm GetEquipmenmtAdditionalFieldsForEdit(int id) 
+        {
+            var equipment = _equipmentRepo.GetEquipmentById(id);
+
+            if (equipment.TypeId == 1) 
+            {
+                var forklift = _equipmentRepo.GetForkliftByEquipmentId(id);
+                var additionalFieldsVm = new AdditionalFieldsVm()
+                {
+                    Speed = forklift.Speed,
+                    Weight = forklift.Weight,
+                    LiftingCapacity = forklift.LiftingCapacity
+                };
+                return additionalFieldsVm;
+            }
+            else
+            {
+                // Obsłuż inne typy wyposażenia lub zgłoś wyjątek
+                throw new NotSupportedException("Typ wyposażenia nie jest obsługiwany.");
+            }
+        }
+
+
+
         public List<string> GetAllTypeNames()
         {
             var types = _equipmentRepo.GetAllTypes();

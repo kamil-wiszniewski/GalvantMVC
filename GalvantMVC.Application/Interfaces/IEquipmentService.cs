@@ -15,6 +15,10 @@ namespace GalvantMVC.Application.Interfaces
 
         CompressorDetailsVm GetEquipmentDetails(int equipmentId);
 
+        NewEquipmentVm GetEquipmentSharedFieldsForEdit(int id);
+
+        AdditionalFieldsVm GetEquipmenmtAdditionalFieldsForEdit(int id);
+
         List<string> GetAllTypeNames();
 
     }
