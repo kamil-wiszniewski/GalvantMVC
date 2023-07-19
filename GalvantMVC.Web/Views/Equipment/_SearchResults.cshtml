@@ -1,0 +1,54 @@
+﻿@model GalvantMVC.Application.ViewModels.SearchResultsListVm
+
+<h1>Search Results</h1>
+
+@if (Model.List != null)
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Location
+            </th>
+            <th>
+                Place
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.List)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlaceName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {/*id=item.PrimaryKey*/})
+                    @Html.ActionLink("Details", "Details", new {/*id=item.PrimaryKey*/})
+                    @Html.ActionLink("Delete", "Delete", new {/*id=item.PrimaryKey*/})
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+}
+else
+{
+    <p>No results found.</p>
+}

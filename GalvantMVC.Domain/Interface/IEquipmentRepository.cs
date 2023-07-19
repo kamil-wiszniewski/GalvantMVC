@@ -32,6 +32,16 @@ namespace GalvantMVC.Domain.Interface
 
         int GetTypeIdByName(string typeName);
 
+        int GetLocationIdByName(string locationName);
+
+        int GetPlaceIdByName(string placeName);
+
         Forklift GetForkliftByEquipmentId(int id);
+
+        void UpdateEquipment(Equipment equipment);
+
+        void UpdateForklift(Forklift forklift);
+        IQueryable<Location> GetAllLocations();
+        IQueryable<Place> GetAllPlaces();
     }
 }

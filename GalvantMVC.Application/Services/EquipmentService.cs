@@ -56,6 +56,31 @@ namespace GalvantMVC.Application.Services
             return equipment.Id;
         }
 
+        public void UpdateEquipment(EditEquipmentVm model) 
+        {           
+            var typeId = _equipmentRepo.GetTypeIdByName(model.NewEquipmentVm.Type);
+
+            var equipment = _equipmentRepo.GetEquipmentById(model.NewEquipmentVm.Id);
+
+            equipment.TypeId = typeId;
+            equipment.LocationId = 1;
+            equipment.PlaceId = 1;
+            equipment.Notes = model.NewEquipmentVm.Notes;
+            
+            _equipmentRepo.UpdateEquipment(equipment);
+
+            if (model.NewEquipmentVm.Type == "forklift")
+            {
+                var forklift = _equipmentRepo.GetForkliftByEquipmentId(model.NewEquipmentVm.Id);
+
+                forklift.Speed = model.AdditionalFieldsVm.Speed;
+                forklift.Weight = model.AdditionalFieldsVm.Weight;
+                forklift.LiftingCapacity = model.AdditionalFieldsVm.LiftingCapacity;                
+
+                _equipmentRepo.UpdateForklift(forklift);
+            }            
+        }
+
         public ListEquipmentForListVm GetAllEquipmentForList()
         {
             var equipment = _equipmentRepo.GetAllActiveEquipment();
@@ -101,7 +126,7 @@ namespace GalvantMVC.Application.Services
 
             var newequipmentVm = new NewEquipmentVm
             {
-                Id= equipment.Id,
+                Id = equipment.Id,
                 Type = typeName,
                 Notes = equipment.Notes,
             };
@@ -124,8 +149,7 @@ namespace GalvantMVC.Application.Services
                 return additionalFieldsVm;
             }
             else
-            {
-                // Obsłuż inne typy wyposażenia lub zgłoś wyjątek
+            {                
                 throw new NotSupportedException("Typ wyposażenia nie jest obsługiwany.");
             }
         }
@@ -138,5 +162,50 @@ namespace GalvantMVC.Application.Services
             var typeNames = types.Select(type => type.Name).ToList();
             return typeNames;            
         }
+
+        public List<string> GetAllLocations()
+        {
+            var locations = _equipmentRepo.GetAllLocations();
+            var locationNames = locations.Select(location => location.Name).ToList();   
+            return locationNames;
+        }
+
+        public List<string> GetAllPlaces()
+        {
+            var places = _equipmentRepo.GetAllPlaces();
+            var placeNames = places.Select(place => place.Name).ToList();
+            return placeNames;
+        }
+
+       public SearchResultsListVm Search(SearchVm searchVm)
+        {
+            var typeId = _equipmentRepo.GetTypeIdByName(searchVm.Type);
+            var locationId = _equipmentRepo.GetLocationIdByName(searchVm.Location);
+            var placeId = _equipmentRepo.GetPlaceIdByName(searchVm.Place);
+
+            var searchedEquipment = _equipmentRepo.GetAllActiveEquipment().Where(e => e.TypeId == typeId &&
+                                                                                 e.LocationId == locationId &&
+                                                                                 e.PlaceId == placeId);
+            SearchResultsListVm results = new SearchResultsListVm();
+            results.List = new List<SearchResultVm>();
+
+            foreach (var item in searchedEquipment)
+            {
+                var typeName = _equipmentRepo.GetTypeNameById(item.TypeId);
+                var locationName = _equipmentRepo.GetLocationNameById(item.LocationId);
+                var placeName = _equipmentRepo.GetPlaceNameById(item.PlaceId);
+
+                var searchResultVm = new SearchResultVm()
+                {
+                    Id = item.Id,
+                    TypeName = typeName,
+                    LocationName = locationName,
+                    PlaceName = placeName
+                };
+                results.List.Add(searchResultVm);
+            }
+            results.Count = results.List.Count;
+            return results;
+        }        
     }
 }

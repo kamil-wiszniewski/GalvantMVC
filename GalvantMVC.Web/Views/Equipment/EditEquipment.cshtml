@@ -6,10 +6,21 @@
 
 <h1>EditEquipment</h1>
 
+<div class="row>">
+    <div class="col-md-4">
+        <form asp-action="EditEquipment">
+
+<input type="hidden" asp-for="NewEquipmentVm.Id" />
+
 <div class="form-group">
     <label asp-for="NewEquipmentVm.Type" class="control-label"></label>
     <input asp-for="NewEquipmentVm.Type" class="form-control" />
     <span asp-validation-for="NewEquipmentVm.Type" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="NewEquipmentVm.Notes" class="control-label"></label>
+    <input asp-for="NewEquipmentVm.Notes" class="form-control" />
+    <span asp-validation-for="NewEquipmentVm.Notes" class="text-danger"></span>
 </div>
 
 @if (Model.NewEquipmentVm.Type == "forklift")
@@ -30,4 +41,11 @@
         <span asp-validation-for="AdditionalFieldsVm.LiftingCapacity" class="text-danger"></span>
     </div>
 }
+
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 

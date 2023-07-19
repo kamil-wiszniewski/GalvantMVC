@@ -53,9 +53,9 @@ namespace GalvantMVC.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditEquipment(NewEquipmentVm model, AdditionalFieldsVm addmodel)
+        public IActionResult EditEquipment(EditEquipmentVm model)
         {
-            var id = _equipmentService.AddEquipment(model, addmodel);
+            _equipmentService.UpdateEquipment(model);
             return RedirectToAction("Index");
         }
 
@@ -72,10 +72,28 @@ namespace GalvantMVC.Web.Controllers
             return PartialView("_AdditionalFields", model);
         }
 
-        /* public IActionResult ViewEquipment(int equipmentId) 
-         {
-             var equipmentModel = equipmentService.GetEquipmentDetails(equipmentId);
-             return View(equipmentModel);
-         }*/
+        [HttpGet]
+        public IActionResult Search()
+        {
+            var types = _equipmentService.GetAllTypeNames();
+            var locations = _equipmentService.GetAllLocations();
+            var places = _equipmentService.GetAllPlaces();
+                        
+            ViewBag.Types = types;
+            ViewBag.Locations = locations;
+            ViewBag.Places = places;
+
+            var searchModel = new SearchVm();
+           
+            return View(searchModel);
+        }
+
+        [HttpPost]
+        public IActionResult Search(SearchVm searchVm)
+        {
+            var results = _equipmentService.Search(searchVm);            
+
+            return PartialView("_SearchResults", results);            
+        }
     }
 }

@@ -13,6 +13,8 @@ namespace GalvantMVC.Application.Interfaces
         ListEquipmentForListVm GetAllEquipmentForList();
         int AddEquipment(NewEquipmentVm model, AdditionalFieldsVm addmodel);
 
+        void UpdateEquipment(EditEquipmentVm model);
+
         CompressorDetailsVm GetEquipmentDetails(int equipmentId);
 
         NewEquipmentVm GetEquipmentSharedFieldsForEdit(int id);
@@ -20,6 +22,8 @@ namespace GalvantMVC.Application.Interfaces
         AdditionalFieldsVm GetEquipmenmtAdditionalFieldsForEdit(int id);
 
         List<string> GetAllTypeNames();
-
+        List<string> GetAllLocations();
+        List<string> GetAllPlaces();
+        SearchResultsListVm Search(SearchVm searchVm);
     }
 }

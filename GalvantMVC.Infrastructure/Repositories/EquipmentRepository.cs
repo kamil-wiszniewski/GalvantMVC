@@ -70,6 +70,7 @@ namespace GalvantMVC.Infrastructure.Repositories
             var type = _context.Types.FirstOrDefault(t => t.Id == typeId);
             return type.Name;
         }
+      
 
         public string GetLocationNameById(int locationId)
         {
@@ -88,11 +89,50 @@ namespace GalvantMVC.Infrastructure.Repositories
             var type = _context.Types.FirstOrDefault(n  => n.Name == typeName);
             return type.Id;
         }
+        public int GetLocationIdByName(string locationName)
+        {
+            var location = _context.Locations.FirstOrDefault(l => l.Name == locationName);
+            return location.Id;
+        }
+
+        public int GetPlaceIdByName(string placeName)
+        {
+            var place = _context.Places.FirstOrDefault(p => p.Name == placeName);
+            return place.Id;
+        }
 
         public Forklift GetForkliftByEquipmentId(int id) 
         {
             var forklift = _context.Forklifts.FirstOrDefault(n => n.EquipmentId == id);
             return forklift;
+        }
+
+        public void UpdateEquipment(Equipment equipment) 
+        {
+            _context.Attach(equipment);
+            _context.Entry(equipment).Property("Notes").IsModified = true;
+            _context.SaveChanges();
+        }
+
+        public void UpdateForklift(Forklift forklift) 
+        {
+            _context.Attach(forklift);
+            _context.Entry(forklift).Property("Speed").IsModified = true;
+            _context.Entry(forklift).Property("Weight").IsModified = true;
+            _context.Entry(forklift).Property("LiftingCapacity").IsModified = true;
+            _context.SaveChanges();
+        }
+
+        public IQueryable<Location> GetAllLocations()
+        {
+            var locations = _context.Locations;
+            return locations;
+        }
+
+        public IQueryable<Place> GetAllPlaces()
+        {
+            var places = _context.Places;
+            return places;
         }
     }
 }
