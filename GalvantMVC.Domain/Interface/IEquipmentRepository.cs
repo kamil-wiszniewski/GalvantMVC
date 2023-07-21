@@ -43,5 +43,6 @@ namespace GalvantMVC.Domain.Interface
         void UpdateForklift(Forklift forklift);
         IQueryable<Location> GetAllLocations();
         IQueryable<Place> GetAllPlaces();
+        void AddPhoto(Photo photo);
     }
 }

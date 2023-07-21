@@ -19,6 +19,7 @@ namespace GalvantMVC.Infrastructure
         public DbSet<Location> Locations { get; set; }
         public DbSet<Place> Places { get; set; }
         public DbSet<Type> Types { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         public Context(DbContextOptions options) : base(options)
         {            

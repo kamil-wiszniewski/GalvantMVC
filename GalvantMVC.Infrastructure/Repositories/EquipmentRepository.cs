@@ -134,5 +134,11 @@ namespace GalvantMVC.Infrastructure.Repositories
             var places = _context.Places;
             return places;
         }
+
+        public void AddPhoto(Photo photo)
+        {
+            _context.Photos.Add(photo);
+            _context.SaveChanges();            
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace GalvantMVC.Application.ViewModels
         public int Id { get; set; }
         public string Type { get; set; }
         public string Notes { get; set; }
-        public Dictionary<string, object> AdditionalFields { get; set; } = new Dictionary<string, object>();
+        public IFormFile PhotoFile { get; set; } // Pole do przesłania zdjęcia
+        public string PhotoPath { get; set; } // Ścieżka do miniatury zdjęcia        
     }
 }

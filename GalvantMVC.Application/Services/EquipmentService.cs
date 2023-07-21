@@ -7,28 +7,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 
 namespace GalvantMVC.Application.Services
 {
     public class EquipmentService : IEquipmentService
     {
         private readonly IEquipmentRepository _equipmentRepo;
+        private readonly IHostEnvironment _hostingEnvironment;
 
-        public EquipmentService(IEquipmentRepository equipmentRepo)
+        public EquipmentService(IEquipmentRepository equipmentRepo, IHostEnvironment hostingEnvironment)
         {
             _equipmentRepo = equipmentRepo;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public int AddEquipment(NewEquipmentVm model, AdditionalFieldsVm addmodel)
         {
-            var typeId = _equipmentRepo.GetTypeIdByName(model.Type);
-
-            if (model.Type == "forklift")
-            {
-                model.AdditionalFields["Speed"] = addmodel.Speed;
-                model.AdditionalFields["Weight"] = addmodel.Weight;
-                model.AdditionalFields["LiftingCapacity"] = addmodel.LiftingCapacity;
-            }
+            var typeId = _equipmentRepo.GetTypeIdByName(model.Type);            
 
             var equipment = new Equipment
             {
@@ -37,8 +33,37 @@ namespace GalvantMVC.Application.Services
                 PlaceId = 1,
                 Notes = model.Notes,                
             };
-
             _equipmentRepo.AddEquipment(equipment);
+
+            Console.WriteLine(model.PhotoFile);            
+
+            if (model.PhotoFile != null)
+            {
+                string uploadDir = Path.Combine(_hostingEnvironment.ContentRootPath, "uploads");
+                if (!Directory.Exists(uploadDir))
+                {
+                    Directory.CreateDirectory(uploadDir);
+                }
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.PhotoFile.FileName;
+                string filePath = Path.Combine(uploadDir, uniqueFileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.PhotoFile.CopyTo(stream);
+                }
+
+                // Zaktualizuj pole PhotoPath w modelu viewmodelu
+                model.PhotoPath = "/uploads/" + uniqueFileName;
+
+                var photo = new Photo
+                {
+                    FileName = uniqueFileName,
+                    FilePath = filePath,
+                    EquipmentId = equipment.Id
+                };
+                _equipmentRepo.AddPhoto(photo);
+            }           
 
             if (model.Type == "forklift")
             {

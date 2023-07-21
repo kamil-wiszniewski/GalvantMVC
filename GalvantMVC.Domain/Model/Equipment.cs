@@ -18,5 +18,6 @@ namespace GalvantMVC.Domain.Model
         public virtual Place Place { get; set; }
         public Forklift Forklift { get; set; }
         public Compressor Compressor { get; set; }
+        public virtual ICollection<Photo> Photos { get; set; }
     }
 }
